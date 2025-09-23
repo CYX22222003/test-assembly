@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Clang 18
-        uses: llvm/llvm-project@main
+        uses: llvm/llvm-toolchain@v1
         with:
           version: 18
 
