@@ -8,7 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]   # Run on Linux + macOS
+        os: [ubuntu-22.04, ubuntu-latest, macos-latest]   # Run on Linux + macOS
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -22,14 +22,14 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           clang -c interop.c -o interop.o
-          clang -c main.s -o main.o
+          clang -c test7.s -o main.o
           clang main.o interop.o -o program
 
       - name: Build executable (macOS)
         if: runner.os == 'macOS'
         run: |
           clang -arch x86_64 -c interop.c -o interop.o
-          clang -arch x86_64 -c main.s -o main.o
+          clang -arch x86_64 -c test7.s -o main.o
           clang -arch x86_64 main.o interop.o -o program
 
       - name: Run with too few args
