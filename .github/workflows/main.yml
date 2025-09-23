@@ -30,7 +30,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           clang -arch x86_64 -c interop.c -o interop.o
-          clang -arch x86_64 -c test7.s -o main.o
+          clang -arch x86_64 -c test7_mac.s -o main.o
           clang -arch x86_64 main.o interop.o -o program
 
       - name: Run with too few args
