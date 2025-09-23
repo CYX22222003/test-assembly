@@ -16,6 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Clang 18
+        uses: llvm/llvm-project@main
+        with:
+          version: 18
+
       - name: Verify clang version
         run: clang --version
 
