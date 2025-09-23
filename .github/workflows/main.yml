@@ -18,7 +18,7 @@ jobs:
 
       - name: Set up Clang
         uses: egor-tensin/setup-clang@v1
-        if: runner.os == "Linux"
+        if: runner.os == 'Linux'
         with:
           version: 18
 
