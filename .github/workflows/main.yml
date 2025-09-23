@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-latest, macos-latest, macos-14, macos-15, macos-26]   # Run on Linux + macOS
+        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-latest, macos-latest, macos-14, macos-15, macos-26, macos-13]   # Run on Linux + macOS
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -20,7 +20,7 @@ jobs:
         run: clang --version
 
       - name: Build executable (Linux)
-        if: runner.os == 'Linux'
+        if: runner.arc == 'Linux'
         run: |
           clang -c interop.c -o interop.o
           clang -c test7.s -o main.o
