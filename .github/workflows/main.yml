@@ -1,0 +1,34 @@
+name: Build and Run Assembly
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]   # Run on Linux + macOS
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify clang version
+        run: clang --version
+
+      - name: Build executable
+        run: |
+          clang -c interop.c -o interop.o
+          clang -c test7.s -o main.o
+          clang main.o interop.o -o program
+
+      - name: Run with too few args
+        run: ./program arg1 || true
+
+      - name: Run with correct args
+        run: ./program arg1 arg2
+
+      - name: Run with too many args
+        run: ./program arg1 arg2 arg3 arg4 || true
