@@ -20,7 +20,7 @@ jobs:
         run: clang --version
 
       - name: Build executable (Linux)
-        if: runner.arc == 'Linux'
+        if: runner.os == 'Linux'
         run: |
           clang -c interop.c -o interop.o
           clang -c test7.s -o main.o
