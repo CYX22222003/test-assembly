@@ -93,15 +93,18 @@ main.many:
         retq
         .text
 main.right:
+        # --- Save registers used for calculation ---
         pushq   %rax
         pushq   %rbx
+        
+        # --- Compute first pointer ---
         movq    %rsi, %rax
         movq    $1, %rbx
         imulq   $8, %rbx
         addq    %rbx, %rax
-        popq    %rbx
         movq    %rax, -56(%rbp)
-        popq    %rax
+        
+        # --- Dereference first pointer into -64(%rbp) ---
         pushq   %r14
         pushq   %r15
         pushq   %rax
@@ -113,15 +116,17 @@ main.right:
         popq    %rax
         popq    %r15
         popq    %r14
+        
+        # --- Compute second pointer ---
         pushq   %rax
         pushq   %rbx
         movq    %rsi, %rax
         movq    $2, %rbx
         imulq   $8, %rbx
         addq    %rbx, %rax
-        popq    %rbx
         movq    %rax, -72(%rbp)
-        popq    %rax
+        
+        # --- Dereference second pointer into -80(%rbp) ---
         pushq   %r14
         pushq   %r15
         pushq   %rax
@@ -133,27 +138,22 @@ main.right:
         popq    %rax
         popq    %r15
         popq    %r14
-        pushq   %rax
-        pushq   %rdi
-        pushq   %rsi
-        pushq   -64(%rbp)
-        pushq   -80(%rbp)
-        popq    %rsi
-        popq    %rdi
+        
+        # --- Call ll_strcat ---
+        movq    -64(%rbp), %rdi       # s1
+        movq    -80(%rbp), %rsi       # s2
+        
+        subq    $8, %rsp              # align stack to 16-byte
         callq   ll_strcat
-        popq    %rsi
-        popq    %rdi
-        movq    %rax, -88(%rbp)
-        popq    %rax
-        pushq   %rax
-        pushq   %rdi
-        pushq   -88(%rbp)
-        popq    %rdi
+        addq    $8, %rsp              # restore stack
+        
+        movq    %rax, -88(%rbp)       # store result
+        
+        # --- Call ll_puts ---
+        movq    -88(%rbp), %rdi       # string argument
+        
+        subq    $8, %rsp
         callq   ll_puts
-        popq    %rdi
-        movq    %rax, -96(%rbp)
-        popq    %rax
-        movq    $0, %rax
-        movq    %rbp, %rsp
-        popq    %rbp
-        retq
+        addq    $8, %rsp
+        
+        movq    %ra
