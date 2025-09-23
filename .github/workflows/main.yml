@@ -19,10 +19,6 @@ jobs:
       - name: Verify clang version
         run: clang --version
 
-      - name: Update system (Linux)
-        if: runner.os == 'Linux'
-        run: sudo apt update && sudo apt upgrade
-
       - name: Build executable (Linux)
         if: runner.os == 'Linux'
         run: |
