@@ -8,12 +8,20 @@ void ll_puts(int8_t *s) {
 }
 
 int8_t* ll_strcat(int8_t* s1, int8_t* s2) {
-  int l1 = strlen((char*)s1);
-  int l2 = strlen((char*)s2);
-  char* buf = (char*)calloc(l1 + l2 + 1, sizeof(char));
-  strncpy(buf, (char*)s1, l1);
-  strncpy(buf + l1, (char*)s2, l2+1);
-  return (int8_t*) buf;
+    if (!s1) s1 = (int8_t*)"";
+    if (!s2) s2 = (int8_t*)"";
+
+    size_t l1 = strlen((char*)s1);
+    size_t l2 = strlen((char*)s2);
+
+    int8_t* buf = (int8_t*)malloc(l1 + l2 + 1); // +1 for null terminator
+    if (!buf) return NULL; // malloc failed
+
+    memcpy(buf, s1, l1);
+    memcpy(buf + l1, s2, l2);
+    buf[l1 + l2] = '\0'; // null terminate
+
+    return buf;
 }
 
 int64_t ll_callback(int64_t (*fun)(int64_t, int64_t)) {
@@ -30,3 +38,4 @@ int8_t* ll_ltoa(int64_t i) {
 void *ll_malloc(int64_t n, int64_t size) {
   return calloc(n, size);
 }
+
