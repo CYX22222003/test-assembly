@@ -22,9 +22,9 @@ jobs:
       - name: Build executable (Linux)
         if: runner.os == 'Linux'
         run: |
-          clang -arch x86_64 interop.c -o interop.o
-          clang -arch x86_64 test7.s -o main.o
-          clang -arch x86_64 main.o interop.o -o program
+          clang -c interop.c -o interop.o
+          clang -c test7.s -o main.o
+          clang main.o interop.o -o program
 
       - name: Build executable (macOS)
         if: runner.os == 'macOS'
