@@ -151,9 +151,19 @@ main.right:
         
         # --- Call ll_puts ---
         movq    -88(%rbp), %rdi       # string argument
-        
+
         subq    $8, %rsp
         callq   ll_puts
         addq    $8, %rsp
         
-        movq    %ra
+        movq    %rax, -96(%rbp)       # store result of ll_puts if needed
+        
+        # --- Restore saved registers ---
+        popq    %rbx
+        popq    %rax
+        
+        # --- Return from function ---
+        movq    $0, %rax
+        movq    %rbp, %rsp
+        popq    %rbp
+        retq
