@@ -153,7 +153,7 @@ main.right:
         pushq   %rdi
         pushq   -88(%rbp)
         popq    %rdi
-        callq   ll_puts
+        callq   _ll_puts
         popq    %rdi
         movq    %rax, -96(%rbp)
         popq    %rax
