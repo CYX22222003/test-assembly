@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-latest, macos-latest]   # Run on Linux + macOS
+        os: [ubuntu-24.04, ubuntu-22.04, ubuntu-latest, macos-latest, macos-14, macos-15, macos-26]   # Run on Linux + macOS
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -18,6 +18,10 @@ jobs:
 
       - name: Verify clang version
         run: clang --version
+
+      - name: Update system (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt update && sudo apt upgrade
 
       - name: Build executable (Linux)
         if: runner.os == 'Linux'
