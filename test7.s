@@ -104,13 +104,11 @@ main.right:
         popq    %rax
         pushq   %r14
         pushq   %r15
-        leaq    -56(%rbp), %r14
-        leaq    -64(%rbp), %r15
         pushq   %rax
         pushq   %r13
-        movq    (%r14), %rax
+        movq    -56(%rbp), %rax
         movq    (%rax), %r13
-        movq    %r13, (%r15)
+        movq    %r13, -64(%rbp)
         popq    %r13
         popq    %rax
         popq    %r15
@@ -126,13 +124,11 @@ main.right:
         popq    %rax
         pushq   %r14
         pushq   %r15
-        leaq    -72(%rbp), %r14
-        leaq    -80(%rbp), %r15
         pushq   %rax
         pushq   %r13
-        movq    (%r14), %rax
+        movq    -72(%rbp), %rax
         movq    (%rax), %r13
-        movq    %r13, (%r15)
+        movq    %r13, -80(%rbp)
         popq    %r13
         popq    %rax
         popq    %r15
