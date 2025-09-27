@@ -50,4 +50,9 @@ jobs:
           clang main.o interop.o -o program
           ./program
 
-
+      - name: Build executable (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          clang -arch x86_64 -c interop.c -o interop.o
+          clang -arch x86_64 -c test.asm -o main_mac.o
+          clang -arch x86_64 main_mac.o interop.o -o program
