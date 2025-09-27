@@ -41,3 +41,13 @@ jobs:
 
       - name: Run with too many args
         run: ./program arg1 arg2 arg3 arg4 || true
+
+      - name: Build executable (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          clang -c interop.c -o interop.o
+          clang -c test7.s -o main.o
+          clang main.o interop.o -o program
+          ./program
+
+
