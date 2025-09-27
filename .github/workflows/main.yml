@@ -56,3 +56,4 @@ jobs:
           clang -arch x86_64 -c interop.c -o interop.o
           clang -arch x86_64 -c test.asm -o main_mac.o
           clang -arch x86_64 main_mac.o interop.o -o program
+          ./program a b c abc a bc c
