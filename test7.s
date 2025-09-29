@@ -1,4 +1,4 @@
-.extern ll_puts ll_strcat
+.extern _ll_puts _ll_strcat
 .data
         .globl  toofew
 toofew:
@@ -9,7 +9,7 @@ toomany:
         .asciz  "argc > 3"
         .text
         .globl  main
-main:
+_main:
         pushq   %rbp
         movq    %rsp, %rbp
         addq    $-96, %rsp
@@ -43,7 +43,7 @@ main.few:
         pushq   %rdi
         pushq   -16(%rbp)
         popq    %rdi
-        callq   ll_puts
+        callq   _ll_puts
         popq    %rdi
         movq    %rax, -24(%rbp)
         popq    %rax
@@ -83,7 +83,7 @@ main.many:
         pushq   %rdi
         pushq   -40(%rbp)
         popq    %rdi
-        callq   ll_puts
+        callq   _ll_puts
         popq    %rdi
         movq    %rax, -48(%rbp)
         popq    %rax
@@ -144,7 +144,7 @@ main.right:
         movq    -80(%rbp), %rsi       # s2
         
         subq    $8, %rsp              # align stack to 16-byte
-        callq   ll_strcat
+        callq   _ll_strcat
         addq    $8, %rsp              # restore stack
         
         movq    %rax, -88(%rbp)       # store result
@@ -153,7 +153,7 @@ main.right:
         movq    -88(%rbp), %rdi       # string argument
 
         subq    $8, %rsp
-        callq   ll_puts
+        callq   _ll_puts
         addq    $8, %rsp
         
         movq    %rax, -96(%rbp)       # store result of ll_puts if needed
