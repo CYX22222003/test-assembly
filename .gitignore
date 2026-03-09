@@ -1,0 +1,4 @@
+*.o
+program
+test_program
+test_program_*
