@@ -51235,7 +51235,7 @@ _create_trie:
 	pushq	$8
 	popq	%rsi
 	popq	%rdi
-	callq	_ll_malloc
+	callq	ll_malloc
 	popq	%rsi
 	popq	%rdi
 	movq	%rax, -8(%rbp)
@@ -51580,11 +51580,13 @@ _insert_helper.not_end:
 	pushq	%rax
 	pushq	%rdi
 	pushq	%rsi
+	pushq	%rdx
 	pushq	%rdi
 	pushq	-32(%rbp)
 	popq	%rsi
 	popq	%rdi
 	callq	_get_child_or_default
+	popq	%rdx
 	popq	%rsi
 	popq	%rdi
 	movq	%rax, -40(%rbp)
@@ -51751,8 +51753,8 @@ _contains_helper.not_null:
 	popq	%rbp
 	retq	
 	.text
-	.globl	_main
-_main:
+	.globl	main
+main:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	addq	$-56, %rsp
@@ -61303,3 +61305,4 @@ _generated_stress_test.fail:
 	movq	%rbp, %rsp
 	popq	%rbp
 	retq	
+.section .note.GNU-stack,"",@progbits
